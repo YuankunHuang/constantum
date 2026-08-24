@@ -23,6 +23,6 @@ target_compile_options(plumbline INTERFACE
 
 # Tests (CTest, dependency-free for V0).
 enable_testing()
-add_executable(test_determinism tests/test_determinism.cpp)
-target_link_libraries(test_determinism PRIVATE plumbline)
-add_test(NAME determinism_smoke COMMAND test_determinism)
+# NOTE: rebuilding from scratch — no test targets yet. Add them back here
+# as each piece (rng, checksum, sim concept, wanderer, determinism test)
+# is written and understood, not before.

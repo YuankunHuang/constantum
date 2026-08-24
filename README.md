@@ -16,8 +16,11 @@ bit-identical per-tick checksums), not claimed.
 
 ## Status
 
-**V0 — scaffold.** Repo, CMake, CI, clang-format, and a determinism smoke test: a seeded deterministic
-wanderer sim, run twice, must produce identical checksums. The gate runs in CI on every push.
+**V0 — rebuilding from scratch.** The repo, CMake, and CI scaffolding exist, but the implementation is
+being re-derived and rewritten from first principles by the owner (see "Ownership" in
+[`docs/DESIGN.md`](docs/DESIGN.md)) rather than kept as originally generated. Done so far: the
+`Simulation` interface contract (`include/plumbline/sim.hpp`). Still to come: checksum, seeded RNG, a
+minimal example simulation, the determinism gate test, and wiring it into CI.
 
 | Stage | Goal | Status |
 |---|---|---|
