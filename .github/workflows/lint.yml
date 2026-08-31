@@ -1,0 +1,24 @@
+name: lint
+
+on: [push, pull_request]
+
+jobs:
+  clang-tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install clang-tidy & Ninja
+        run: sudo apt-get update && sudo apt-get install -y clang-tidy ninja-build
+
+      - name: Configure cmake
+        run: cmake -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+      - name: Run Clang-Tidy Check
+        run: |
+          RUN_CLANG_TIDY="$(command -v run-clang-tidy || ls /usr/bin/run-clang-tidy-* 2>/dev/null | head -n1)"
+          if [ -z "$RUN_CLANG_TIDY" ]; then
+            echo "run-clang-tidy not found on PATH" >&2
+            exit 1
+          fi
+          "$RUN_CLANG_TIDY" -p build -header-filter='(^|/)(src|include)/' -warnings-as-errors='*'

@@ -9,6 +9,11 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 endif()
 
+# Ensure output: compile_commands.json
+# That's it. I don't want to slow down compilation.
+# We'll leave the check for clangd & CI.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Header-only core library (the platform).
 add_library(constantum INTERFACE)
 target_include_directories(constantum INTERFACE

@@ -1,0 +1,92 @@
+---
+# 启用命名检查，关闭多余的默认检查
+Checks: >
+  -*,
+  readability-identifier-naming
+
+# 将命名违规提升为编译错误（强制阻断）
+WarningsAsErrors: 'readability-identifier-naming'
+
+# 仅对项目自身的头文件做检查，排除第三方/系统头文件
+# 注意：CMake 生成的 compile_commands.json 里路径通常是绝对路径，
+# 所以不能用 ^ 锚定在字符串开头，改成"前面是 / 或者就是字符串开头"两种情况都匹配
+HeaderFilterRegex: '(^|/)(src|include)/'
+
+CheckOptions:
+  # 忽略 main 签名及类似入口函数检查
+  - key: readability-identifier-naming.IgnoreMainLikeFunctions
+    value: true
+
+  # 1. 类型命名 (PascalCase / CamelCase)
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypeAliasCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: CamelCase
+
+  # 2. 命名空间
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+
+  # 3. 函数与方法 (Google 规定普通函数和类方法使用 CamelCase)
+  - key: readability-identifier-naming.FunctionCase
+    value: CamelCase
+  - key: readability-identifier-naming.MethodCase
+    value: CamelCase
+
+  # 4. 常量 (前缀 k + CamelCase)
+  # 我们目前不确定 `static constexpr` 的类内常量（比如 rng.hpp 里的 kStep）
+  # 具体会被归类到下面哪一个 category，所以把所有可能的类别都配成同一套规则
+  # 兜底（"打散风险"策略）——包括专门给类内 static 常量用的 ClassConstantCase。
+  # TODO: 拿到能跑 clang-tidy 的环境后，实测一遍 rng.hpp 确认到底是哪个类别在生效。
+  - key: readability-identifier-naming.ClassConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.ClassConstantPrefix
+    value: 'k'
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: CamelCase
+  - key: readability-identifier-naming.ConstexprVariablePrefix
+    value: 'k'
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.GlobalConstantPrefix
+    value: 'k'
+  - key: readability-identifier-naming.StaticConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.StaticConstantPrefix
+    value: 'k'
+  - key: readability-identifier-naming.EnumConstantCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumConstantPrefix
+    value: 'k'
+
+  # 5. 变量与参数
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+
+  # 6. 类与结构体成员
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: lower_case
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: '_'
+  - key: readability-identifier-naming.ProtectedMemberCase
+    value: lower_case
+  - key: readability-identifier-naming.ProtectedMemberSuffix
+    value: '_'
+  - key: readability-identifier-naming.PublicMemberCase
+    value: lower_case
+  - key: readability-identifier-naming.PublicMemberSuffix
+    value: ''
+
+  # 7. 宏定义
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
