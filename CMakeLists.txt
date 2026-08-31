@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(plumbline VERSION 0.1.0 LANGUAGES CXX)
+project(constantum VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -10,13 +10,13 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Header-only core library (the platform).
-add_library(plumbline INTERFACE)
-target_include_directories(plumbline INTERFACE
+add_library(constantum INTERFACE)
+target_include_directories(constantum INTERFACE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
-target_compile_features(plumbline INTERFACE cxx_std_20)
-target_compile_options(plumbline INTERFACE
+target_compile_features(constantum INTERFACE cxx_std_20)
+target_compile_options(constantum INTERFACE
   $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall;-Wextra;-Wpedantic;-Wconversion;-Wshadow>
   $<$<CXX_COMPILER_ID:MSVC>:/W4;/permissive->
 )

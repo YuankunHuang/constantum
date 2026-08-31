@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace plumbline {
+namespace constantum {
 
 class SplitMix64 {
 public:
@@ -29,4 +29,4 @@ private:
     static constexpr std::uint64_t MULT2 = 0x94D049BB133111EB; // based on study
 };
 
-}
+}  // namespace constantum

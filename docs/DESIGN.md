@@ -1,4 +1,4 @@
-# Plumbline — Design
+# Constantum — Design
 
 > A deterministic simulation evaluation harness: prove a result is *trustworthy*, not just "looks right".
 
@@ -50,7 +50,7 @@ concept Simulation = requires(S& s, std::uint64_t seed) {
 ## Why determinism first
 
 A simulation that is not deterministic cannot be evaluated: a "regression" might just be noise.
-Plumbline treats determinism as a **first-class invariant, proven by CI** (run the same scenario twice,
+Constantum treats determinism as a **first-class invariant, proven by CI** (run the same scenario twice,
 compare bit-identical per-tick checksums), not claimed. Foundations:
 
 - **Fixed-point math** (Q16.16) for simulation state — floating point is not bit-stable across
@@ -85,8 +85,9 @@ compare bit-identical per-tick checksums), not claimed. Foundations:
 
 ## Naming
 
-The name is a plumb line: the tool a builder uses to establish what is true vertical. The tagline is the
-explanation; the substance is the proof. (Name = hook, tagline = explanation, substance = proof.)
+The name evokes *constant* — the invariant the platform exists to prove: the same seed, run any number of
+times on any machine, produces the same result, bit for bit. The tagline is the explanation; the substance
+is the proof. (Name = hook, tagline = explanation, substance = proof.)
 
 ## Anti-bloat rule
 

@@ -3,7 +3,7 @@
 #include <concepts>
 #include <cstdint>
 
-namespace plumbline {
+namespace constantum {
 
 template <typename S>
 concept Simulation = requires(S& s, std::uint64_t seed) {
@@ -13,4 +13,4 @@ concept Simulation = requires(S& s, std::uint64_t seed) {
     { s.checksum() } -> std::same_as<std::uint64_t>;
 };
 
-}  // namespace plumbline
+}  // namespace constantum
