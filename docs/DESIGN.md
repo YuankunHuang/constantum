@@ -19,7 +19,7 @@ Not a game, not a toy. A platform: a minimal simulation interface, and a CI-enfo
 │  coverage · provenance · metrics · oracle    │
 └────────────────────┬────────────────────────┘
                      │  Simulation interface
-                     │  (reset / step / tick / checksum / serialize)
+                     │  (Reset / Step / Tick / Checksum / Serialize)
           ┌──────────┴──────────┐
           ▼                     ▼
   Reference sim 1        Reference sim 2
@@ -40,10 +40,10 @@ minimal — anything more, and adding a new simulation stops being "an hour of w
 ```cpp
 template <typename S>
 concept Simulation = requires(S& s, std::uint64_t seed) {
-    { s.reset(seed) } -> std::same_as<void>;
-    { s.step() } -> std::same_as<void>;
-    { s.tick() } -> std::same_as<std::uint64_t>;
-    { s.checksum() } -> std::same_as<std::uint64_t>;
+    { s.Reset(seed) } -> std::same_as<void>;
+    { s.Step() } -> std::same_as<void>;
+    { s.Tick() } -> std::same_as<std::uint64_t>;
+    { s.Checksum() } -> std::same_as<std::uint64_t>;
 };
 ```
 
@@ -64,7 +64,7 @@ compare bit-identical per-tick checksums), not claimed. Foundations:
 | Component | Responsibility | Bar |
 |---|---|---|
 | 1. Determinism kernel | fixed-point + seeded RNG + no globals + no unordered iteration | determinism is a first-class invariant, proven by CI |
-| 2. Simulation interface | reset / step / tick / checksum / serialize | minimal enough that a new sim takes ~1 hour to add |
+| 2. Simulation interface | Reset / Step / Tick / Checksum / Serialize | minimal enough that a new sim takes ~1 hour to add |
 | 3. Scenario engine | declarative scenarios (YAML/small DSL) + generic runner | scenarios are data, not code |
 | 4. Determinism gate | record/replay + per-tick checksum | runs in CI on every push; non-determinism = red |
 | 5. Coverage | input-space fuzzing + coverage report | "coverage" = state-space regions, not line coverage |
