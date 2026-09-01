@@ -9,7 +9,7 @@ public:
     explicit SplitMix64(std::uint64_t seed) {
         state_ = seed;
     }
-    inline std::uint64_t Next() {
+    std::uint64_t Next() {
         state_ += kStep;
         std::uint64_t output = state_;
         // bijection works for any k: x ^ (x >> k)
