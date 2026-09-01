@@ -23,11 +23,15 @@ target_include_directories(constantum INTERFACE
 target_compile_features(constantum INTERFACE cxx_std_20)
 target_compile_options(constantum INTERFACE
   $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall;-Wextra;-Wpedantic;-Wconversion;-Wshadow>
-  $<$<CXX_COMPILER_ID:MSVC>:/W4;/permissive->
+  $<$<CXX_COMPILER_ID:MSVC>:/W4;/permissive-;/Zc:preprocessor>
 )
 
 # Tests (CTest, dependency-free for V0).
 enable_testing()
-# NOTE: rebuilding from scratch — no test targets yet. Add them back here
-# as each piece (rng, checksum, sim concept, wanderer, determinism test)
-# is written and understood, not before.
+add_executable(test_rng tests/test_rng.cpp)
+target_link_libraries(test_rng PRIVATE constantum)
+add_test(NAME rng COMMAND test_rng)
+
+add_executable(test_fixed tests/test_fixed.cpp)
+target_link_libraries(test_fixed PRIVATE constantum)
+add_test(NAME fixed COMMAND test_fixed)

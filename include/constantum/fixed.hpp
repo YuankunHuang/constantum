@@ -38,7 +38,7 @@ public:
         if (other.Raw() == 0) {
             throw std::runtime_error("Modulo by zero");
         }
-        return Fixed(static_cast<std::int32_t>((static_cast<std::int64_t>(value_) << 16) % other.Raw()));
+        return Fixed(value_ % other.Raw());
     }
 
     // assignment operators
@@ -65,7 +65,7 @@ public:
         if (other.Raw() == 0) {
             throw std::runtime_error("Modulo by zero");
         }
-        value_ = static_cast<std::int32_t>((static_cast<std::int64_t>(value_) << 16) % other.Raw());
+        value_ %= other.Raw();
         return *this;
     }
 
