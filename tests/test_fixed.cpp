@@ -19,7 +19,7 @@ void Test_RoundTripConsistency() {
 }
 
 void Test_NegativeTruncDirectionChange() {
-    CHECK(Fixed::FromFloat(-1.5f).Raw() == -98304, "Negative truncation direction changed");
+    CHECK(Fixed::FromFloat(-1.5f).Raw() == -6442450944, "Negative truncation direction changed");
 }
 
 void Test_DivisionByZeroThrowing() {
