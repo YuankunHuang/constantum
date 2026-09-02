@@ -35,3 +35,7 @@ add_test(NAME rng COMMAND test_rng)
 add_executable(test_fixed tests/test_fixed.cpp)
 target_link_libraries(test_fixed PRIVATE constantum)
 add_test(NAME fixed COMMAND test_fixed)
+
+add_executable(test_checksum tests/test_checksum.cpp)
+target_link_libraries(test_checksum PRIVATE constantum)
+add_test(NAME checksum COMMAND test_checksum)

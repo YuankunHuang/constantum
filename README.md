@@ -16,19 +16,17 @@ bit-identical per-tick checksums), not claimed.
 
 ## Status
 
-**V0 — rebuilding from scratch.** The repo, CMake, and CI scaffolding exist, but the implementation is
-being re-derived and rewritten from first principles by the owner (see "Ownership" in
-[`docs/DESIGN.md`](docs/DESIGN.md)) rather than kept as originally generated. Done so far: the
-`Simulation` interface contract (`include/constantum/sim.hpp`). Still to come: checksum, seeded RNG, a
-minimal example simulation, the determinism gate test, and wiring it into CI.
+**V1 in progress — rebuilt from scratch by the owner** (see "Ownership" in
+[`docs/DESIGN.md`](docs/DESIGN.md)). Kernel primitives exist and are tested on GCC and MSVC: seeded
+RNG (`SplitMix64`), order-sensitive checksum (`Fnv1a64`), fixed-point `Fixed`, and the `Simulation`
+concept. Not yet present: the state visitor, record/replay, first-divergence detection, the CMake
+gates. The architecture for all of it is in `docs/DESIGN.md`.
 
 | Stage | Goal | Status |
 |---|---|---|
-| V0 | scaffold + determinism gate in CI | in progress |
-| V1 | fixed-point kernel, Simulation interface, multi-agent world | next |
-| V2 | declarative scenarios + provenance | |
-| V3 | coverage + differential oracle | |
-| V4 | metrics export + second sim (reusability proof) + docs | |
+| V1 | first failure story: Q32.32 kernel · state identity · cross-process record/replay · first divergence · CI gates | in progress |
+| NEXT | trajectory invariants · declarative scenarios · provenance | when a workload demands it |
+| LATER | coverage · differential oracle · metrics export | hypotheses |
 
 ## Build & test
 
@@ -41,11 +39,10 @@ ctest --test-dir build --output-on-failure
 ## Layout
 
 ```
-include/constantum/   core platform headers (checksum, rng, sim concept)
-examples/             reference simulations that plug into the harness
-tests/                CI-enforced determinism gates
+include/constantum/   platform headers (fixed, rng, checksum, sim concept; state/harness/cli to come)
+tests/                kernel tests and, later, the harness's own gates on a trivial toy simulation
+docs/DESIGN.md        architecture and decision records
 ```
 
----
-
-*The name is a nod to the invariant the platform exists to prove: run it again, and the result is constant.*
+Reference simulations do **not** live here. They are separate repositories that consume Constantum as a
+dependency — that boundary is the platform claim.
